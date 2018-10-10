@@ -47,7 +47,7 @@ greedy_knapsack <- function(x,W){
 
 
    }
-   result <- list("value" = round(knapsackvalue), "elements" = as.vector(elements), "weight" = weight)
+   result <- list("value" = round(knapsackvalue), "elements" = as.vector(elements))
    return(result)
 
 }
