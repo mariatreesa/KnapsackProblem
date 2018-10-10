@@ -8,7 +8,10 @@
 #' @references
 #' @export dynamic_knapsack
 #'
-#' @examples dynamic_knapsack(x = knapsack_objects[1:500,], w = 2000)
+#' @examples set.seed(42)
+#' n <- 2000
+#' knapsack_objects <- data.frame(w=sample(1:4000, size = n, replace = TRUE), v=runif(n = n, 0, 10000))
+#' greedy_knapsack(x = knapsack_objects[1: 8,], W = 3500)
 #'
 #'
 
@@ -16,13 +19,20 @@
 
 
 dynamic_knapsack <- function(x,W){
-   m <- matrix(nrow = (nrow(x)+1), ncol = (W+1))
-   m <- as.data.frame(m)
-   m[1,]<-0
-   m[,1]<-0
+
+  if(is.numeric(W)== F || is.data.frame(x) ==F){
+    stop("Please enter valid inputs")
+  }
+  else if(W <= 0){
+    stop("Please enter weight larger than 0")
+  }
+
+
+   m <- as.data.frame(matrix(0, ncol = (W+1), nrow = (nrow(x)+1)))
 
    # The code below runs two for loops to get the maximum value
    #that can be extracted keeping the weight minimum
+
    for(i in 2:nrow(m)){
      for(j in 2:ncol(m)){
        if (x$w[i-1] > j-1){
@@ -68,5 +78,5 @@ knapsack_objects <-
     v=runif(n = n, 0, 10000)
   )
 
-dynamic_knapsack(x = knapsack_objects[1:500,], W = 2000)
+dynamic_knapsack(x = knapsack_objects[1:12,], W = 2000)
 
