@@ -24,6 +24,7 @@ colnames(bag) <- c("v","w")
 # function takes dataframe X and limit W
 knapsack_brute_force <- function(X,W){
   # empty list
+  #as.numeric(X[,1])
   value_knap <- list(value = c(), elements = c())
 
   #number of items
@@ -45,10 +46,10 @@ knapsack_brute_force <- function(X,W){
     # for each selection get the total value
     for (j in 1:k) {
       # if sum of comb value is less than W store it in sel
-      if(sum(bag[combs[[i]][,j],1]) < W) {
+      if(sum(X[combs[[i]][,j],1]) < W) {
 
         # max value from comb
-        value_knap$value <- max(sum(bag[combs[[i]][,j],2]))
+        value_knap$value <- max(sum(X[combs[[i]][,j],2]))
 
         # elements with maximum value and least weight
         value_knap$elements <- combs[[i]][,j]
