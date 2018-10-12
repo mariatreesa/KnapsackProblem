@@ -5,51 +5,30 @@
 
 # pseudo-random generated data set.
 
-#set.seed(1010)
-#n <- 20
-#knapsack_objects <- data.frame(
-#  w <- sample(1:4000, size = n, replace = TRUE),
-#  v <- runif(n = n, 0 ,10000)
-#)
+set.seed(1010)
+n <- 20
+knapsack_objects <- data.frame(
+  w <- sample(1:4000, size = n, replace = TRUE),
+  v <- runif(n = n, 0 ,10000)
+)
 
-#colnames(knapsack_objects) <- c("w","v")
+colnames(knapsack_objects) <- c("w","v")
 
 bag <- data.frame(
-  v <- c(3,2,5,6,7),
-  w <- c(10,5,8,12,15)
+  w <- c(10,5,8,12,15),
+  v <- c(4,5,8,3,1)
 )
 
 colnames(bag) <- c("v","w")
 
-
-#sel1 <- bag[combs[,1],]
-
-# power set
-#pset <- c()
-#for(i in 1:2^n){
-#  pset <- c(intToBits(i)[i:32], pset)
-#  pset[i] == 1
-#}
-
-#trial <- combn(n)
-
-
-
-#x <- matrix(intToBits(1:(2^n-1)), ncol=2^n-1);
-
-# the "on-off" combinations for each position
-#combs = sapply(knapsack_objects$v, function(x) as.integer(intToBits(x)[seq_len(knapsack_objects$v)]))
-
 # function takes dataframe X and limit W
 knapsack_brute_force <- function(X,W){
   # empty list
-  value_knap <- list(value = 0, elements = c())
+  value_knap <- list(value = c(), elements = c())
 
   #number of items
   n <- nrow(X)
 
-  # number of columns
-  cols<- ncol(X)
   # list of all possible combinations
   combs <- list()
   # get all possible combinations
@@ -60,37 +39,30 @@ knapsack_brute_force <- function(X,W){
 
   }
 
-  #value_knap$value <- bag[combs[[1]][1],1]
-  # filter by rows of the data by comb
-  #sel <- list(val = 0, weight = 0)
-
-  # get total weight and value of selected items
-  #sel$val <- sum(bag[combs[[2]][,2], 1])
-  #sel$weight <- sum(bag[combs[[2]][,2], 2])
-  sel <- list(t_value = c(), t_weight = c())
-  obj = list()
   for(i in seq_len(n)){
     k = ncol(combs[[i]])
-    r = c()
+
     # for each selection get the total value
     for (j in 1:k) {
-      sel$t_value <- cbind(sel$t_value, sum(bag[combs[[i]][,j],1]))
-      sel$t_weight <- cbind(sel$t_weight, sum(bag[combs[[i]][,j],2]))
-      sel$r <- cbind(sel$r, combs[[i]][,j])
-      #max_val <- value_knap$value
-       #value_knap$elements <- which(sum(bag[combs[[i]][,k],1])) == max_val
+      # if sum of comb value is less than W store it in sel
+      if(sum(bag[combs[[i]][,j],2]) < W) {
+
+        # max value from comb
+        value_knap$value <- max(sum(bag[combs[[i]][,j],2]))
+
+        # elements with maximum value and least weight
+        value_knap$elements <- combs[[i]][,j]
+      }
     }
-    obj[[i]] = unique(as.vector(sel$r))
-   # get elements with max val
 
 
   }
-  sel$obj = obj
-return(sel)
+
+return(value_knap)
 
 }
 
-knapsack_brute_force(bag, 35)
+knapsack_brute_force(knapsack_objects, W = 4500)
 
-my_list <- list(a = bag, b = bag)
+
 
