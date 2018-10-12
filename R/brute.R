@@ -45,7 +45,7 @@ knapsack_brute_force <- function(X,W){
     # for each selection get the total value
     for (j in 1:k) {
       # if sum of comb value is less than W store it in sel
-      if(sum(bag[combs[[i]][,j],2]) < W) {
+      if(sum(bag[combs[[i]][,j],1]) < W) {
 
         # max value from comb
         value_knap$value <- max(sum(bag[combs[[i]][,j],2]))
