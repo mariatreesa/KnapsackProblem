@@ -22,7 +22,7 @@ bag <- data.frame(
 colnames(bag) <- c("v","w")
 
 
-sel1 <- bag[combs[,1],]
+#sel1 <- bag[combs[,1],]
 
 # power set
 #pset <- c()
@@ -43,7 +43,7 @@ sel1 <- bag[combs[,1],]
 # function takes dataframe X and limit W
 knapsack_brute_force <- function(X,W){
   # empty list
-  value_knap <- list(value = 0, elements = c(0,0))
+  value_knap <- list(value = 0, elements = c())
 
   #number of items
   n <- nrow(X)
@@ -60,29 +60,33 @@ knapsack_brute_force <- function(X,W){
 
   }
 
-  value_knap$value <- bag[combs[[1]][1],1]
+  #value_knap$value <- bag[combs[[1]][1],1]
   # filter by rows of the data by comb
-  sel <- list(val = 0, weight = 0)
+  #sel <- list(val = 0, weight = 0)
 
   # get total weight and value of selected items
-  sel$val <- sum(bag[combs[[2]][,2], 1])
-  sel$weight <- sum(bag[combs[[2]][,2], 2])
-
+  #sel$val <- sum(bag[combs[[2]][,2], 1])
+  #sel$weight <- sum(bag[combs[[2]][,2], 2])
+  sel <- list(t_value = c(), t_weight = c())
+  obj = list()
   for(i in seq_len(n)){
     k = ncol(combs[[i]])
+    r = c()
     # for each selection get the total value
-    for (j in seq_len(k)) {
-      value_knap$value <- max(sum(bag[combs[[i]][,k],1]))
-
-      max_val <- value_knap$value
-       value_knap$elements <- which(sum(bag[combs[[i]][,k],1])) == max_val
+    for (j in 1:k) {
+      sel$t_value <- cbind(sel$t_value, sum(bag[combs[[i]][,j],1]))
+      sel$t_weight <- cbind(sel$t_weight, sum(bag[combs[[i]][,j],2]))
+      sel$r <- cbind(sel$r, combs[[i]][,j])
+      #max_val <- value_knap$value
+       #value_knap$elements <- which(sum(bag[combs[[i]][,k],1])) == max_val
     }
-
+    obj[[i]] = unique(as.vector(sel$r))
    # get elements with max val
 
 
   }
-return(value_knap)
+  sel$obj = obj
+return(sel)
 
 }
 
