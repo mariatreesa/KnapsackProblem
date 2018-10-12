@@ -2,29 +2,26 @@
 #' Knapsack brute force algorithm
 #' @author Brian Masinde, Maria Treesa Sebastian, Omkar
 #'
+#' @param X
+#'
+#' @param W
+#'
+#' @export knapsack_brute_force
+#'
+#' @return value_knap
+#'
+#' @example knapsack_brute_force(X,W)
 
-# pseudo-random generated data set.
 
-set.seed(1010)
-n <- 20
-knapsack_objects <- data.frame(
-  w <- sample(1:4000, size = n, replace = TRUE),
-  v <- runif(n = n, 0 ,10000)
-)
-
-colnames(knapsack_objects) <- c("w","v")
-
-bag <- data.frame(
-  w <- c(10,5,8,12,15),
-  v <- c(4,5,8,3,1)
-)
-
-colnames(bag) <- c("v","w")
 
 # function takes dataframe X and limit W
-knapsack_brute_force <- function(X,W){
+brute_force_knapsack <- function(X,W){
+  # stop for erroneous input
+  if(is.data.frame(X) == FALSE){
+    stop("X is not a data frame")
+  }
+
   # empty list
-  #as.numeric(X[,1])
   value_knap <- list(value = c(), elements = c())
 
   #number of items
@@ -44,9 +41,9 @@ knapsack_brute_force <- function(X,W){
     k = ncol(combs[[i]])
 
     # for each selection get the total value
-    for (j in 1:k) {
+    for (j in seq_len(k)) {
       # if sum of comb value is less than W store it in sel
-      if(sum(X[combs[[i]][,j],1]) < W) {
+      if(sum(X[combs[[i]][,j],1]) <= W) {
 
         # max value from comb
         value_knap$value <- max(sum(X[combs[[i]][,j],2]))
@@ -63,7 +60,13 @@ return(value_knap)
 
 }
 
-knapsack_brute_force(knapsack_objects, W = 4500)
+# Test case
+set.seed(42)
+n <- 2000
+knapsack_objects <- data.frame(
+  w=sample(1:4000, size = n, replace = TRUE),
+  v=runif(n = n, 0, 10000)
+)
 
-
+brute_force_knapsack(knapsack_objects[1:8,], W = 3500)
 
