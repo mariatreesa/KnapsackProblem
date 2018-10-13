@@ -1,5 +1,5 @@
 
-#' Knapsack brute force algorithm
+#' Knapsack - brute force algorithm
 #' @author Brian Masinde, Maria Treesa Sebastian, Omkar
 #'
 #' @param X
@@ -10,7 +10,11 @@
 #'
 #' @return value_knap
 #'
-#' @example knapsack_brute_force(X,W)
+#' @examples set.seed(42)
+#' n <- 2000
+#' knapsack_objects <- data.frame(w=sample(1:4000, size = n, replace = TRUE), v=runif(n = n, 0, 10000))
+#' brute_force_knapsack(x = knapsack_objects[1:8,], W = 3500)\
+#'
 
 
 

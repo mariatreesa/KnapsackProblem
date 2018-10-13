@@ -1,4 +1,4 @@
-#' knapsack - Dynamic Algorithm
+#' knapsack - Greedy Algorithm
 #'
 #' @author Maria,Masinde,Omkar
 #' @param x as dataframe
