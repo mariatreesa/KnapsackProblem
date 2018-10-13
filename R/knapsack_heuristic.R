@@ -36,14 +36,15 @@ greedy_knapsack <- function(x,W){
    capacity <- W
    knapsackvalue <- 0
 
+
     for(i in 1:nrow(x)){
      currentweight <- x$w[i]
      currentvalue <- x$v[i]
-     capacity = capacity - currentweight
-     if(capacity >= 0){
+     if((capacity - currentweight) >= 0){
+      capacity = capacity - currentweight
        knapsackvalue = knapsackvalue + currentvalue
        elements = cbind(elements,as.numeric(rownames(x[i,])))
-     }
+     }else{break();}
 
 
    }
@@ -57,6 +58,7 @@ greedy_knapsack <- function(x,W){
 
 set.seed(42)
 n <- 2000
+
 knapsack_objects <- data.frame(
 
     w=sample(1:4000, size = n, replace = TRUE),

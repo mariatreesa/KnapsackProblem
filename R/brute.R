@@ -17,12 +17,16 @@
 # function takes dataframe X and limit W
 brute_force_knapsack <- function(X,W){
   # stop for erroneous input
-  if(is.data.frame(X) == FALSE){
-    stop("X is not a data frame")
+  if(is.numeric(W)== F || is.data.frame(X) ==F){
+    stop("Please enter valid inputs")
+  }
+  else if(W <= 0){
+    stop("Please enter weight larger than 0")
   }
 
+
   # empty list
-  value_knap <- list(value = c(), elements = c())
+  value_knap <- list(value = c(0), elements = c())
 
   #number of items
   n <- nrow(X)
@@ -43,10 +47,11 @@ brute_force_knapsack <- function(X,W){
     # for each selection get the total value
     for (j in seq_len(k)) {
       # if sum of comb value is less than W store it in sel
-      if(sum(X[combs[[i]][,j],1]) <= W) {
+      if((sum(X[combs[[i]][,j],1]) <= W) && sum(X[combs[[i]][,j],2]) > value_knap$value) {
 
         # max value from comb
         value_knap$value <- max(sum(X[combs[[i]][,j],2]))
+
 
         # elements with maximum value and least weight
         value_knap$elements <- combs[[i]][,j]
@@ -68,5 +73,6 @@ knapsack_objects <- data.frame(
   v=runif(n = n, 0, 10000)
 )
 
-brute_force_knapsack(knapsack_objects[1:8,], W = 3500)
+brute_force_knapsack(knapsack_objects[1:9,], W = 3500)
+
 
