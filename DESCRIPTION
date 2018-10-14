@@ -1,14 +1,16 @@
 Package: knapsack
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Knapsack algorithm
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Maria Treesa(marse306), Brian Masinde(brima748), Omkar
+Maintainer: The package maintainer <mariatreesaa@gmail.com>
+Description: Package has multiple algorithms to solve knapsack problem
+License: Apache License
 Encoding: UTF-8
 LazyData: true
 Suggests: knitr,
-    rmarkdown
+    rmarkdown,
+    testthat,
+RoxygenNote: 6.1.0
+Depends: R (>= 2.10)
 VignetteBuilder: knitr
