@@ -43,12 +43,12 @@ greedy_knapsack <- function(x,W){
      if((capacity - currentweight) >= 0){
       capacity = capacity - currentweight
        knapsackvalue = knapsackvalue + currentvalue
-       elements = cbind(elements,as.numeric(rownames(x[i,])))
+       elements = c(as.numeric(rownames(x[i,])),elements)
      }else{break();}
 
 
    }
-   result <- list("value" = round(knapsackvalue), "elements" = as.vector(elements))
+   result <- list("value" = round(knapsackvalue), "elements" = elements)
    return(result)
 
 }

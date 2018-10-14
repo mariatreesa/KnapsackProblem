@@ -26,7 +26,8 @@ dynamic_knapsack <- function(x,W){
   else if(W <= 0){
     stop("Please enter weight larger than 0")
   }
-   m <- as.data.frame(matrix(0, ncol = (W+1), nrow = (nrow(x)+1)))
+  # removing the elements with weight more than 0  to reduce the number of iteration
+   m <- matrix(0, ncol = (W+1), nrow = (nrow(x)+1))
 
    # The code below runs two for loops to get the maximum value
    #that can be extracted keeping the weight minimum
