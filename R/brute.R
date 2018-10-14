@@ -54,7 +54,7 @@ brute_force_knapsack <- function(X,W){
       if((sum(X[combs[[i]][,j],1]) <= W) && sum(X[combs[[i]][,j],2]) > value_knap$value) {
 
         # max value from comb
-        value_knap$value <- max(sum(X[combs[[i]][,j],2]))
+        value_knap$value <- sum(X[combs[[i]][,j],2])
 
 
         # elements with maximum value and least weight

@@ -1,0 +1,129 @@
+---
+title: "Knapsack Algorithm Implementation"
+author: "Sebastian Masinde Omkar"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+library(knapsack)
+```
+
+The goal of knapsack package is to find the combination of objects with maximum value without exceeding a given weight. 
+
+This package has the solutions for Knapsack problem using three algorithms.
+1. Brute Force Algorithm
+2. Dynamic Algorithm
+3. Greedy Algorithm
+
+The object used in knapsack_objects. This is a data frame with 2000 rows and 2 columns. The column data cointains the weight and value of objects.
+
+```{r}
+head(knapsack_objects)
+```
+
+
+
+##The Usage of Package
+
+###brute_force_knapsack(X,W)
+
+This algorithm can be invoked as given below:
+
+brute_force_knapsack(X = knapsak_objects[1:8],W=16)
+
+Output
+
+```{r}
+brute_force_knapsack(X = knapsak_objects[1:8],W=2000)
+
+```
+
+###dynamic_knapsack(x,W)
+
+This algorithm can be invoked as given below:
+
+dynamic_knapsack(X = knapsak_objects[1:8],W=2000)
+
+Output
+
+```{r}
+dynamic_knapsack(x = knapsak_objects[1:8],W=2000)
+
+```
+
+
+###greedy_knapsack(x,W)
+
+This algorithm can be invoked as given below:
+
+greedy_knapsack(X = knapsak_objects[1:8],W=2000)
+
+Output
+
+```{r}
+greedy_knapsack(x = knapsak_objects[1:8],W=2000)
+
+```
+
+##Speed of Algorithms
+
+###brute_force_knapsack(X,W)
+
+Time taken to run the algorithm for 16 objects
+
+```{r}
+starttime <- system.time()
+brute_force_knapsack(x = knapsak_objects[1:16],W=2000)
+endtime <- system.time()
+
+bruteforce_time = starttime - endtime
+```
+
+The time taken to run brute force algorithm for 16 objects is: 
+
+```{r}
+bruteforce_time
+```
+
+
+###dynamic_knapsack(X,W)
+
+Time taken to run the algorithm for 500 objects
+
+```{r}
+starttime <- system.time()
+dynamic_knapsack(x = knapsak_objects[1:500],W=3500)
+endtime <- system.time()
+
+dynamic_time = starttime - endtime
+```
+
+The time taken to run brute force algorithm for 500 objects is: 
+
+```{r}
+dynamic_time
+```
+
+
+###dynamic_knapsack(X,W)
+
+Time taken to run the algorithm for 500 objects
+
+```{r}
+starttime <- system.time()
+greedy_knapsack(x = knapsak_objects[1:1000000],W=3500)
+endtime <- system.time()
+
+greedy_time = starttime - endtime
+```
+
+The time taken to run brute force algorithm for 1000000 objects is: 
+
+```{r}
+greedy_time
+```
