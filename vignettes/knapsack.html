@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Sebastian Masinde Omkar" />
+
+<meta name="date" content="2018-10-14" />
+
+<title>Knapsack Algorithm Implementation</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Knapsack Algorithm Implementation</h1>
+<h4 class="author"><em>Sebastian Masinde Omkar</em></h4>
+<h4 class="date"><em>2018-10-14</em></h4>
+
+
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(knapsack)</code></pre></div>
+<p>The goal of knapsack package is to find the combination of objects with maximum value without exceeding a given weight.</p>
+<p>This package has the solutions for Knapsack problem using three algorithms. 1. Brute Force Algorithm 2. Dynamic Algorithm 3. Greedy Algorithm</p>
+<p>The object used in knapsack_objects. This is a data frame with 2000 rows and 2 columns. The column data cointains the weight and value of objects.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(knapsack_objects)</code></pre></div>
+<pre><code>##      w        v
+## 1 3660 4615.520
+## 2 3749 4137.988
+## 3 1145 8544.690
+## 4 3322 1587.847
+## 5 2567 5226.892
+## 6 2077 4039.024</code></pre>
+<div id="the-usage-of-package" class="section level2">
+<h2>The Usage of Package</h2>
+<div id="brute_force_knapsackxw" class="section level3">
+<h3>brute_force_knapsack(X,W)</h3>
+<p>This algorithm can be invoked as given below:</p>
+<p>brute_force_knapsack(X = knapsak_objects[1:8,],W=2000)</p>
+<p>Output</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">brute_force_knapsack</span>(<span class="dt">X =</span> knapsack_objects[<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>,],<span class="dt">W=</span><span class="dv">2000</span>)</code></pre></div>
+<pre><code>## $value
+## [1] 12634.27
+## 
+## $elements
+## [1] 3 8</code></pre>
+</div>
+<div id="dynamic_knapsackxw" class="section level3">
+<h3>dynamic_knapsack(x,W)</h3>
+<p>This algorithm can be invoked as given below:</p>
+<p>dynamic_knapsack(X = knapsack_objects[1:8,],W=2000)</p>
+<p>Output</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dynamic_knapsack</span>(<span class="dt">x =</span> knapsack_objects[<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>,],<span class="dt">W=</span><span class="dv">2000</span>)</code></pre></div>
+<pre><code>## $value
+## [1] 12634
+## 
+## $elements
+## [1] 3 8</code></pre>
+</div>
+<div id="greedy_knapsackxw" class="section level3">
+<h3>greedy_knapsack(x,W)</h3>
+<p>This algorithm can be invoked as given below:</p>
+<p>greedy_knapsack(X = knapsack_objects[1:8,],W=2000)</p>
+<p>Output</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">greedy_knapsack</span>(<span class="dt">x =</span> knapsack_objects[<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>,],<span class="dt">W=</span><span class="dv">2000</span>)</code></pre></div>
+<pre><code>## $value
+## [1] 12634
+## 
+## $elements
+## [1] 3 8</code></pre>
+</div>
+</div>
+<div id="speed-of-algorithms" class="section level2">
+<h2>Speed of Algorithms</h2>
+<div id="brute_force_knapsackxw-1" class="section level3">
+<h3>brute_force_knapsack(X,W)</h3>
+<p>Time taken to run the algorithm for 16 objects</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starttime &lt;-<span class="st"> </span><span class="kw">Sys.time</span>()
+<span class="kw">brute_force_knapsack</span>(<span class="dt">X =</span> knapsack_objects[<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>,],<span class="dt">W=</span><span class="dv">2000</span>)</code></pre></div>
+<pre><code>## $value
+## [1] 12634.27
+## 
+## $elements
+## [1] 3 8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">endtime &lt;-<span class="st"> </span><span class="kw">Sys.time</span>()
+
+bruteforce_time =<span class="st"> </span>endtime <span class="op">-</span><span class="st"> </span>starttime</code></pre></div>
+<p>The time taken to run brute force algorithm for 16 objects is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bruteforce_time</code></pre></div>
+<pre><code>## Time difference of 1.107072 secs</code></pre>
+</div>
+<div id="dynamic_knapsackxw-1" class="section level3">
+<h3>dynamic_knapsack(X,W)</h3>
+<p>Time taken to run the algorithm for 500 objects</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starttime &lt;-<span class="st"> </span><span class="kw">Sys.time</span>()
+<span class="kw">dynamic_knapsack</span>(<span class="dt">x =</span> knapsack_objects[<span class="dv">1</span><span class="op">:</span><span class="dv">500</span>,],<span class="dt">W=</span><span class="dv">3500</span>)</code></pre></div>
+<pre><code>## $value
+## [1] 185809
+## 
+## $elements
+##  [1]  35  37  55  71  77  80  92 110 117 195 196 214 229 234 255 282 288
+## [18] 290 332 345 346 401 434 436 450 462 472 500</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">endtime &lt;-<span class="st"> </span><span class="kw">Sys.time</span>()
+
+dynamic_time =<span class="st"> </span>endtime <span class="op">-</span><span class="st"> </span>starttime</code></pre></div>
+<p>The time taken to run brute force algorithm for 500 objects is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dynamic_time</code></pre></div>
+<pre><code>## Time difference of 50.06766 secs</code></pre>
+</div>
+<div id="dynamic_knapsackxw-2" class="section level3">
+<h3>dynamic_knapsack(X,W)</h3>
+<p>Time taken to run the algorithm for 500 objects</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starttime &lt;-<span class="st"> </span><span class="kw">Sys.time</span>()
+<span class="kw">greedy_knapsack</span>(<span class="dt">x =</span> knapsack_objects[<span class="dv">1</span><span class="op">:</span><span class="dv">1000000</span>,],<span class="dt">W=</span><span class="dv">3500</span>)</code></pre></div>
+<pre><code>## $value
+## [1] 6990826
+## 
+## $elements
+##    [1]  18132  87366 900915 128088 247215 405865 522506 932937 382495
+##   [10] 742426 468912 631883 865133 585050 194347 450677 514132 373545
+##   [19]  95438  99820  68836 822859 456073  67660 468617 182080 307112
+##   [28] 394060 626844 204511 208954 462395 389235 715388 752838  15860
+##   [37] 656097 420423 153640 674251 251201 180958 177711  21816 304576
+##   [46] 878125 474358 222559 600927 242863 905557 174304 200674 457901
+##   [55] 235464 894625 350037 699276 437206 194476 465567 138921 371778
+##   [64] 317827 737749 557336 596766 835697  44133 501835 401219 664667
+##   [73] 390988 307857 752511 585021 880665 630199 935077 896612 855787
+##   [82]  78984 834334 433721  56549 208464 481931 290965  10628 334512
+##   [91] 777801 984274 967082  37210 759266 924670 875441 210076 665963
+##  [100] 659233 790637 570387 400063 844095 918376 408923  93333 616230
+##  [109] 872857 473114 213781 292943 315752 966856 412654 234323 969150
+##  [118] 303046 115466 452387  57974 735774 840704 698667 409005 788426
+##  [127] 306868  20981 670247 965775 723989 827472 608482 508045 871300
+##  [136] 719430  55708 877617 717169 981807 770465 332241 380781 768729
+##  [145] 620434  62754 594069 893478 490741 870540 899510 974881 242609
+##  [154] 227726  66828 970758 672837 545417 371157 641157 539768 364398
+##  [163] 814736 231700 198094 681132  46657 491871  35941 169084   1398
+##  [172] 342757 266193 672892 753417 981293 242762 731264 702736 673469
+##  [181] 836062 779525 671745 539481 768093 158300 453556 168357  69750
+##  [190] 458355 166098  42587 799359 310727 164829 247202 257092 127438
+##  [199] 366993 989545 966034 708991  49616  87881 340711 879822 846809
+##  [208] 532854 323270 276267 849751  46942 426225 107630 245588 222299
+##  [217] 789330  40219 101948 477058 176596 787890 530258 483059 551444
+##  [226] 961114 581749 884485 131024 470153 828069 586680 103955 484811
+##  [235] 865141 523324 488728 615373 576576 627122 752909 379486 144339
+##  [244]  37583 411612 697460 519779 750492 736647 820468 553375 957829
+##  [253] 635538 262818 297896  34991  42262 707725 511361 982363 402816
+##  [262] 211202 485440 655067 593841 472619 265087  79028 948018 247390
+##  [271] 119678 384953 286354 354644 911942 379652 273319 453333 638986
+##  [280] 676960  47034 306663 387813 392138 624614 698084 345444 239643
+##  [289] 171373 506642 445861  81423 212221  44796 840738 601640 277464
+##  [298] 322717 620252 516126 784212 501714 371620 124774 496095 986829
+##  [307] 488607 549197 652834 682243 613829 710856 284422 693784 284718
+##  [316]  27606 583417 195748 189534 987053 221857 745551 897071 625563
+##  [325] 436834   6896 940850  65327 116997 238310 869430 962775  67538
+##  [334] 309118 394628 419474 305381 338799 249622 858459 183335 955939
+##  [343] 836373 167749 238119 650723 541959 802701 756193 175464 301634
+##  [352] 401297 140032 377259 453316 831266 803884 828324 944335 320132
+##  [361] 639529 727983 924857 728388 412439 131638 235948 748356 986911
+##  [370] 402047  77301 538116  53599  31525 735540 717812 724842 285759
+##  [379] 127526 494724 221438 617697 443785 338663 203454 354549 328221
+##  [388] 917726 618914 510057 467854 929952 471086 342821  35505 792726
+##  [397] 373841 485663 290861 255787 454032 875569  41579 864222 278088
+##  [406]  70740 697394 182532 886009 320199 516065 467352 754984 412848
+##  [415] 352048 281747 327413 725884 761935 162323 638385  73872 588326
+##  [424] 820950 878106 823339 711941 535648 944521  69113 609118 112579
+##  [433] 177437 996055 359714 150049 317382 546807 328644 813332 958989
+##  [442]  60275 818531  41808  15761 447929 255689 439998 861381 589751
+##  [451] 976900 886550 971244 446772 284016 854839 193182 434201 865579
+##  [460] 374763 351030 911832 981239 152894 245397 961590  86032 839010
+##  [469] 476933  68543 948622 211961 201411 575731 196999 427764  12653
+##  [478]  68143 476202 362673 189692 920298 304885 811353 147290 575410
+##  [487]  30648 881297 181087 970124 381928 292474  76329 204585 633363
+##  [496] 337509 133262  14423 993562 200179 863929 637446 668696 667517
+##  [505] 209734 828438 410237 930746 303605 952159 335246 383227  20449
+##  [514] 798360 493220 102060 872837 302657 330846  60759 669105 283416
+##  [523]  55803 590406 649897  13895 655881 438692 877058 520630 413642
+##  [532]  70143 537954 493524   6636 994386 119928 250593 165128  97466
+##  [541] 522850 141453 725261 562045 599838 687622 353823 842143 952695
+##  [550]  70079 654843 327639  47529 149665 199914 855078 656910 605633
+##  [559] 776431 840302 999323 239339 218221  43697 788162 197546 112870
+##  [568]  15234 850334 550668 743652 225028 717622 372555 256710 866708
+##  [577] 778285 337584 940849 730561 802917 683505 957924 542328  20112
+##  [586]  33111 296445 576400 754792 441692 343383 764054  44739 214203
+##  [595] 887690 792838 664515 610015 983753 802462 193920 633729 364491
+##  [604] 212406 382239 310553 269544 658423 924509 261136    574 216084
+##  [613] 713930 886211 431436 579515 462358  90385 795854  28368 980799
+##  [622] 743647 359815 773546  38586 944129 663546 639841  28419 663118
+##  [631] 356314 711470 172410  73448 789474 956477 936938  65183 523814
+##  [640] 933599 172311 130634 272464  35395 662701 192366 245973 287553
+##  [649] 767073 844176 671965  55452 574950 918933  45400 141740 474437
+##  [658]  84914 178397 771735 367080 772937   7641 567177 200960 616374
+##  [667]   5847 498931 401404 203662  33447 546815 817531 517851 709802
+##  [676] 229393 605077 320860 381724  63363 786590 338273 253959 108621
+##  [685]  29632 104005  49751 270313 646012 761853 480520 555985  49668
+##  [694] 929983 794958 498161 612004  45626 704206 359927 772061 289066
+##  [703] 767376  71232 368567 690000 829261 653221 390698 334647 990046
+##  [712]  31259 593475 337827 233037 693551 825286 817138 941304 811931
+##  [721] 320009 911781 323864 619786 682067 244642 944780 478003 512351
+##  [730] 628349 836001 518157 365433 499313 813720 539901 353861 266467
+##  [739] 319422 538877 316988 900184 365661 273353 131919 964598 409558
+##  [748] 341314  24767 111440 187090 337886 672881 509378 349961 942550
+##  [757] 663475 603005 100592 821788 154531 473833 698967 743263 273611
+##  [766] 214436 523511 312314 637546 389186 112585  79992  67123 697172
+##  [775] 860370 392239 910755 639924 403832  43221 689001 799296 417413
+##  [784]  96380 338203 826215 293190 805644 910991 772615 601386 905056
+##  [793] 704563  65289   1959 804049 949215 442566 385803 709017 448773
+##  [802] 166408 566645 129597  81756 548905 430454 130158 988530 608553
+##  [811] 523424  68272 638102 169702 581154 119546  59997 412105 357306
+##  [820]  60389 746086 764075 363667 974281 612842 393509 503927 856810
+##  [829] 331515 320899 750560 346291 712714  69610 511315 577824 200683
+##  [838] 407458 531255  80696 213962 116630 528564 143732 111445 559388
+##  [847] 798100 472014 146461 952837 370314 460808 747608 878443 234591
+##  [856] 937153 875686 813887 764619 833221 532125 171792 129810 198927
+##  [865]  99029   9820 649780   4064  69820 106167  40233 607175 508451
+##  [874] 261903 988323 999970 719613 993855 110543 310408 123683 126058
+##  [883] 522470 381640 986844 927579  66195 728190 690666 116502 584020
+##  [892] 436829  82234 585450 291327 174080 623584 212866 520011 707779
+##  [901] 895040 361179 886096 425019 905225 755053 904604 813501 356185
+##  [910] 722205 604457 194514 623272 772263 173648 614435  20762 379537
+##  [919] 278376 930034 785390 637530 160089 529571 508985 791906 423987
+##  [928] 296316 403408 157922 689043 770926 818388 349680 305414 572045
+##  [937] 434874 310816  55489  11846 906340 824796  40622 810704 883431
+##  [946] 353944 732857 966336 308028 351617 152830 807139 453473 791054
+##  [955] 580417 730572 322074 913910 404077 709642 706389 421066 233064
+##  [964] 726866 622175 287671     92 629033  47148 109338 879948 683326
+##  [973] 151872 370544 244050 478452 793145 891017 696014 336951 728149
+##  [982] 234405 629907 646458 725636 880827 415515 247353 705755 105825
+##  [991] 524270  47819 112570 346531 297653 922389 386920 304118 584004
+## [1000] 548722 394157 156272 412611 893708 529765 218781 485974 300226
+## [1009] 602507 567932  88176 496734 495595 683460 971550  77957 143187
+## [1018] 731378 640068 386314</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">endtime &lt;-<span class="st"> </span><span class="kw">Sys.time</span>()
+
+greedy_time =<span class="st"> </span>endtime <span class="op">-</span><span class="st"> </span>starttime</code></pre></div>
+<p>The time taken to run brute force algorithm for 1000000 objects is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">greedy_time</code></pre></div>
+<pre><code>## Time difference of 0.5694411 secs</code></pre>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

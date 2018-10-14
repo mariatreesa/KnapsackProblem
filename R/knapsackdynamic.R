@@ -5,7 +5,6 @@
 #' @param W as numeric
 #'
 #' @return list containing value and elements
-#' @references
 #' @export dynamic_knapsack
 #'
 #' @examples set.seed(42)

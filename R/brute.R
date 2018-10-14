@@ -6,7 +6,7 @@
 #'
 #' @param W
 #'
-#' @export knapsack_brute_force
+#' @export brute_force_knapsack
 #'
 #' @return value_knap
 #'

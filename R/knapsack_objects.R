@@ -6,3 +6,4 @@
 #'   \item{w}{weight of the items}
 #'   \item{v}{value of the items}
 #' }
+"knapsack_objects"
