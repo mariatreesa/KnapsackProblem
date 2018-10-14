@@ -1,0 +1,46 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# knapsack
+
+The goal of knapsack is to find the combination of objects with maximum value without exceeding a given weight. Three approaches are implemented, the brute force algorithm, greedy algorithm and dynamic algorithm.
+
+## Installation
+
+You can install knapsack from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("mariatreesa/RLab6")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+## brute force example
+brute_force_knapsack(X = knapsak_objects[1:8],W=2000)
+```
+
+```{r example2}
+## dynamic example
+dynamic_knapsack(x = knapsak_objects[1:8],W=2000)
+```
+
+```{r example3}
+## greedy example
+greedy_knapsack(x = knapsak_objects[1:8],W=2000)
+```
+
