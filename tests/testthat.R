@@ -1,3 +1,3 @@
 library(testthat)
-library(Rlab6)
-test_check("Rlab6")
+library(knapsack)
+test_check("knapsack")

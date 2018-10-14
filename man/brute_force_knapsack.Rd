@@ -4,12 +4,12 @@
 \alias{brute_force_knapsack}
 \title{Knapsack - brute force algorithm}
 \usage{
-brute_force_knapsack(X, W)
+brute_force_knapsack(x, W)
 }
 \arguments{
-\item{X}{}
+\item{x}{as data frame}
 
-\item{W}{}
+\item{W}{as numeric}
 }
 \value{
 value_knap
@@ -21,7 +21,7 @@ Knapsack - brute force algorithm
 set.seed(42)
 n <- 2000
 knapsack_objects <- data.frame(w=sample(1:4000, size = n, replace = TRUE), v=runif(n = n, 0, 10000))
-brute_force_knapsack(x = knapsack_objects[1:8,], W = 3500)\\
+brute_force_knapsack(x = knapsack_objects[1:8,], W = 3500)
 
 }
 \author{

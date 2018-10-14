@@ -91,9 +91,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="brute_force_knapsackxw" class="section level3">
 <h3>brute_force_knapsack(X,W)</h3>
 <p>This algorithm can be invoked as given below:</p>
-<p>brute_force_knapsack(X = knapsak_objects[1:8,],W=2000)</p>
+<p>brute_force_knapsack(x = knapsak_objects[1:8,],W=2000)</p>
 <p>Output</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">brute_force_knapsack</span>(<span class="dt">X =</span> knapsack_objects[<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>,],<span class="dt">W=</span><span class="dv">2000</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">brute_force_knapsack</span>(<span class="dt">x =</span> knapsack_objects[<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>,],<span class="dt">W=</span><span class="dv">2000</span>)</code></pre></div>
 <pre><code>## $value
 ## [1] 12634.27
 ## 
@@ -103,7 +103,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="dynamic_knapsackxw" class="section level3">
 <h3>dynamic_knapsack(x,W)</h3>
 <p>This algorithm can be invoked as given below:</p>
-<p>dynamic_knapsack(X = knapsack_objects[1:8,],W=2000)</p>
+<p>dynamic_knapsack(x = knapsack_objects[1:8,],W=2000)</p>
 <p>Output</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dynamic_knapsack</span>(<span class="dt">x =</span> knapsack_objects[<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>,],<span class="dt">W=</span><span class="dv">2000</span>)</code></pre></div>
 <pre><code>## $value
@@ -115,7 +115,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="greedy_knapsackxw" class="section level3">
 <h3>greedy_knapsack(x,W)</h3>
 <p>This algorithm can be invoked as given below:</p>
-<p>greedy_knapsack(X = knapsack_objects[1:8,],W=2000)</p>
+<p>greedy_knapsack(x = knapsack_objects[1:8,],W=2000)</p>
 <p>Output</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">greedy_knapsack</span>(<span class="dt">x =</span> knapsack_objects[<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>,],<span class="dt">W=</span><span class="dv">2000</span>)</code></pre></div>
 <pre><code>## $value
@@ -128,10 +128,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="speed-of-algorithms" class="section level2">
 <h2>Speed of Algorithms</h2>
 <div id="brute_force_knapsackxw-1" class="section level3">
-<h3>brute_force_knapsack(X,W)</h3>
+<h3>brute_force_knapsack(x,W)</h3>
 <p>Time taken to run the algorithm for 16 objects</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starttime &lt;-<span class="st"> </span><span class="kw">Sys.time</span>()
-<span class="kw">brute_force_knapsack</span>(<span class="dt">X =</span> knapsack_objects[<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>,],<span class="dt">W=</span><span class="dv">2000</span>)</code></pre></div>
+<span class="kw">brute_force_knapsack</span>(<span class="dt">x =</span> knapsack_objects[<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>,],<span class="dt">W=</span><span class="dv">2000</span>)</code></pre></div>
 <pre><code>## $value
 ## [1] 12634.27
 ## 
@@ -142,10 +142,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 bruteforce_time =<span class="st"> </span>endtime <span class="op">-</span><span class="st"> </span>starttime</code></pre></div>
 <p>The time taken to run brute force algorithm for 16 objects is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bruteforce_time</code></pre></div>
-<pre><code>## Time difference of 1.107072 secs</code></pre>
+<pre><code>## Time difference of 0.8397529 secs</code></pre>
 </div>
 <div id="dynamic_knapsackxw-1" class="section level3">
-<h3>dynamic_knapsack(X,W)</h3>
+<h3>dynamic_knapsack(x,W)</h3>
 <p>Time taken to run the algorithm for 500 objects</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starttime &lt;-<span class="st"> </span><span class="kw">Sys.time</span>()
 <span class="kw">dynamic_knapsack</span>(<span class="dt">x =</span> knapsack_objects[<span class="dv">1</span><span class="op">:</span><span class="dv">500</span>,],<span class="dt">W=</span><span class="dv">3500</span>)</code></pre></div>
@@ -160,10 +160,10 @@ bruteforce_time =<span class="st"> </span>endtime <span class="op">-</span><span
 dynamic_time =<span class="st"> </span>endtime <span class="op">-</span><span class="st"> </span>starttime</code></pre></div>
 <p>The time taken to run brute force algorithm for 500 objects is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dynamic_time</code></pre></div>
-<pre><code>## Time difference of 50.06766 secs</code></pre>
+<pre><code>## Time difference of 27.36604 secs</code></pre>
 </div>
 <div id="dynamic_knapsackxw-2" class="section level3">
-<h3>dynamic_knapsack(X,W)</h3>
+<h3>dynamic_knapsack(x,W)</h3>
 <p>Time taken to run the algorithm for 500 objects</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">starttime &lt;-<span class="st"> </span><span class="kw">Sys.time</span>()
 <span class="kw">greedy_knapsack</span>(<span class="dt">x =</span> knapsack_objects[<span class="dv">1</span><span class="op">:</span><span class="dv">1000000</span>,],<span class="dt">W=</span><span class="dv">3500</span>)</code></pre></div>
@@ -290,7 +290,7 @@ dynamic_time =<span class="st"> </span>endtime <span class="op">-</span><span cl
 greedy_time =<span class="st"> </span>endtime <span class="op">-</span><span class="st"> </span>starttime</code></pre></div>
 <p>The time taken to run brute force algorithm for 1000000 objects is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">greedy_time</code></pre></div>
-<pre><code>## Time difference of 0.5694411 secs</code></pre>
+<pre><code>## Time difference of 0.3381219 secs</code></pre>
 </div>
 </div>
 

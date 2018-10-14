@@ -31,16 +31,16 @@ This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
 ## brute force example
-brute_force_knapsack(X = knapsak_objects[1:8],W=2000)
+brute_force_knapsack(x = knapsak_objects[1:8,],W=2000)
 ```
 
 ```{r example2}
 ## dynamic example
-dynamic_knapsack(x = knapsak_objects[1:8],W=2000)
+dynamic_knapsack(x = knapsak_objects[1:8,],W=2000)
 ```
 
 ```{r example3}
 ## greedy example
-greedy_knapsack(x = knapsak_objects[1:8],W=2000)
+greedy_knapsack(x = knapsak_objects[1:8,],W=2000)
 ```
 

@@ -14,7 +14,7 @@ knapsack_objects <-
 head(knapsack_objects)
 
 ## ------------------------------------------------------------------------
-brute_force_knapsack(X = knapsack_objects[1:8,],W=2000)
+brute_force_knapsack(x = knapsack_objects[1:8,],W=2000)
 
 
 ## ------------------------------------------------------------------------
@@ -27,7 +27,7 @@ greedy_knapsack(x = knapsack_objects[1:8,],W=2000)
 
 ## ------------------------------------------------------------------------
 starttime <- Sys.time()
-brute_force_knapsack(X = knapsack_objects[1:16,],W=2000)
+brute_force_knapsack(x = knapsack_objects[1:16,],W=2000)
 endtime <- Sys.time()
 
 bruteforce_time = endtime - starttime
