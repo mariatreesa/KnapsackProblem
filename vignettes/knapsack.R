@@ -47,6 +47,16 @@ dynamic_time
 
 ## ------------------------------------------------------------------------
 starttime <- Sys.time()
+dynamic_knapsack(x = knapsack_objects[1:500,],W=3500,fast = TRUE)
+endtime <- Sys.time()
+
+dynamic_time = endtime - starttime
+
+## ----echo=FALSE----------------------------------------------------------
+dynamic_time
+
+## ------------------------------------------------------------------------
+starttime <- Sys.time()
 greedy_knapsack(x = knapsack_objects[1:1000000,],W=3500)
 endtime <- Sys.time()
 

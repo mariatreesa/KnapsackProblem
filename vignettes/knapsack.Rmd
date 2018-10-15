@@ -117,6 +117,22 @@ dynamic_time
 ```
 
 
+###dynamic_knapsack(x,W,fast=TRUE)
+
+Time taken to run the algorithm for 500 objects using Rcpp
+
+```{r}
+starttime <- Sys.time()
+dynamic_knapsack(x = knapsack_objects[1:500,],W=3500,fast = TRUE)
+endtime <- Sys.time()
+
+dynamic_time = endtime - starttime
+```
+
+```{r echo=FALSE}
+dynamic_time
+```
+
 ###greedy_knapsack(x,W)
 
 Time taken to run the algorithm for 1000000 objects
@@ -149,3 +165,5 @@ greedy_time = endtime - starttime
 ```{r echo=FALSE}
 greedy_time
 ```
+
+We can clearly observe the advantage of using cpp function in above two examples. The code that used cpp in both Greedy Algorithm and Dynamic algorithm takes less time compared to the normal R algorithms.

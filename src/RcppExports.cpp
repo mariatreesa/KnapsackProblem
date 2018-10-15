@@ -16,9 +16,24 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// knapSackdynamic_cpp
+NumericMatrix knapSackdynamic_cpp(int W, NumericVector wt, NumericVector val, int n);
+RcppExport SEXP _knapsack_knapSackdynamic_cpp(SEXP WSEXP, SEXP wtSEXP, SEXP valSEXP, SEXP nSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type W(WSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type wt(wtSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type val(valSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    rcpp_result_gen = Rcpp::wrap(knapSackdynamic_cpp(W, wt, val, n));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_knapsack_vectorSum", (DL_FUNC) &_knapsack_vectorSum, 1},
+    {"_knapsack_knapSackdynamic_cpp", (DL_FUNC) &_knapsack_knapSackdynamic_cpp, 4},
     {NULL, NULL, 0}
 };
 

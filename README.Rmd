@@ -14,33 +14,196 @@ knitr::opts_chunk$set(
 
 # knapsack
 
-The goal of knapsack is to find the combination of objects with maximum value without exceeding a given weight. Three approaches are implemented, the brute force algorithm, greedy algorithm and dynamic algorithm.
+The goal of knapsack is to find the combination of objects with maximum value without exceeding a given weight. Three approaches are implemented, the brute force algorithm, greedy algorithm and dynamic algorithm. 
 
 ## Installation
 
 You can install knapsack from github with:
 
 ```{r gh-installation, eval = FALSE}
-# install.packages("devtools")
+#install.packages("devtools")
 devtools::install_github("mariatreesa/RLab6")
 ```
 
-## Example
+## Examples
 
-This is a basic example which shows you how to solve a common problem:
+The knapsack objects used:
 
-```{r example}
+```{r echo=FALSE}
+set.seed(42)
+n = 1000000
+knapsack_objects <-
+  data.frame(
+    w=sample(1:4000, size = n, replace = TRUE),
+    v=runif(n = n, 0, 10000)
+  )
+
+head(knapsack_objects)
+```
+
+
+The following code shows how to invoke the three algorithms for knapsack problem.
+
+###Brute Force Algorithm
+
+```{r example, echo=FALSE}
 ## brute force example
-brute_force_knapsack(x = knapsak_objects[1:8,],W=2000)
+brute_force_knapsack <- function(x,W){
+  # stop for erroneous input
+  if(is.numeric(W)== F || is.data.frame(x) ==F){
+    stop("Please enter valid inputs")
+  }
+  else if(W <= 0){
+    stop("Please enter weight larger than 0")
+  }
+
+
+  # empty list
+  value_knap <- list(value = c(0), elements = c())
+
+  #number of items
+  n <- nrow(x)
+
+  # list of all possible combinations
+  combs <- list()
+  # get all possible combinations
+  # We want as many items as possible in the bag
+  for(i in seq_len(n)){
+
+  combs[i] <- list(combn(n, i))
+
+  }
+
+  for(i in seq_len(n)){
+    k = ncol(combs[[i]])
+
+    # for each selection get the total value
+    for (j in seq_len(k)) {
+      # if sum of comb value is less than W store it in sel
+      if((sum(x[combs[[i]][,j],1]) <= W) && sum(x[combs[[i]][,j],2]) > value_knap$value) {
+
+        # max value from comb
+        value_knap$value <- sum(x[combs[[i]][,j],2])
+
+
+        # elements with maximum value and least weight
+        value_knap$elements <- combs[[i]][,j]
+      }
+    }
+
+
+  }
+
+return(value_knap)
+
+}
+
 ```
 
-```{r example2}
+```{r}
+brute_force_knapsack(x = knapsack_objects[1:8,],W=2000)
+```
+
+
+###Dynamic Algorithm
+
+```{r example2, echo=FALSE}
 ## dynamic example
-dynamic_knapsack(x = knapsak_objects[1:8,],W=2000)
+dynamic_knapsack <- function(x,W,fast = FALSE){
+
+  if(is.numeric(W)== F || is.data.frame(x) ==F){
+    stop("Please enter valid inputs")
+  }
+  else if(W <= 0){
+    stop("Please enter weight larger than 0")
+  }
+
+  if(fast == FALSE){
+   m <- matrix(0, ncol = (W+1), nrow = (nrow(x)+1))
+
+   # The code below runs two for loops to get the maximum value
+   #that can be extracted keeping the weight minimum
+
+   for(i in 2:nrow(m)){
+     for(j in 2:ncol(m)){
+       if (x$w[i-1] > j-1){
+        m[i, j] = m[i-1, j]}
+       else if(j-x$w[i-1] >= 0){
+          m[i, j] = max(m[i-1, j], m[i-1, ((j-x$w[i-1]))] + x$v[i-1])
+        }
+       else{
+          m[i, j] = m[i-1, j]
+        }
+
+       }
+   }
+  }
+  else{
+    m = knapSackdynamic_cpp(W,x$w,x$v,nrow(x))
+  }
+
+
+   # the code below runs one for loop to get the elements that are used to get the value above
+   val <- m[nrow(m),ncol(m)]
+   elements <- c()
+
+   for(row in nrow(m):2){
+    if(!(val %in% m[row-1,])){
+      elements <- c(elements, row-1)
+      val = val - x$v[row-1]
+    }
+
+   }
+   elements = sort(elements, decreasing = FALSE)
+
+   result <- list("value" = round(m[nrow(m),ncol(m)]), "elements" = elements)
+   return(result)
+
+}
+
 ```
 
-```{r example3}
-## greedy example
-greedy_knapsack(x = knapsak_objects[1:8,],W=2000)
+```{r}
+dynamic_knapsack(x = knapsack_objects[1:8,],W=2000,fast = FALSE)
 ```
+
+
+###Greedy Algorithm
+```{r example3, echo=FALSE}
+## greedy example
+
+greedy_knapsack <- function(x,W, fast = FALSE ){
+
+  if(is.numeric(W)== F || is.data.frame(x) ==F){
+    stop("Please enter valid inputs")
+  }
+  else if(W <= 0){
+    stop("Please enter weight larger than 0")
+  }
+
+
+  x$elements <- as.numeric(rownames(x))
+  x$vw <- x$v/x$w
+  x <- x[order(-x$vw),]
+  x <- x[which(x$w <= W),]
+  x$weight_sum <- cumsum(x$w)
+  x <- x[which(x$weight_sum <= W),]
+  if(fast == TRUE){
+    knapsackvalue <- vectorSum(x$v)
+  }else{
+  knapsackvalue <- sum(x$v)
+  }
+  elements <- x$elements
+
+   result <- list("value" = round(knapsackvalue), "elements" = elements)
+   return(result)
+
+}
+
+```
+
+```{r}
+greedy_knapsack(x = knapsack_objects[1:8,],W=2000,fast = FALSE)
+```
+
 

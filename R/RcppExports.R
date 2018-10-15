@@ -5,3 +5,7 @@ vectorSum <- function(x) {
     .Call('_knapsack_vectorSum', PACKAGE = 'knapsack', x)
 }
 
+knapSackdynamic_cpp <- function(W, wt, val, n) {
+    .Call('_knapsack_knapSackdynamic_cpp', PACKAGE = 'knapsack', W, wt, val, n)
+}
+

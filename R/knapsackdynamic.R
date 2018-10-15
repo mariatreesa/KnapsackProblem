@@ -3,6 +3,7 @@
 #' @author Maria,Masinde,Omkar
 #' @param x as dataframe
 #' @param W as numeric
+#' @param fast as TRUE/FALSE
 #'
 #' @return list containing value and elements
 #' @export dynamic_knapsack
@@ -10,14 +11,14 @@
 #' @examples set.seed(42)
 #' n <- 2000
 #' knapsack_objects <- data.frame(w=sample(1:4000, size = n, replace = TRUE), v=runif(n = n, 0, 10000))
-#' greedy_knapsack(x = knapsack_objects[1: 8,], W = 3500)
+#' dynamic_knapsack(x = knapsack_objects[1: 8,], W = 3500, fast=FALSE)
 #'
 #'
 
 
 
 
-dynamic_knapsack <- function(x,W){
+dynamic_knapsack <- function(x,W,fast = FALSE){
 
   if(is.numeric(W)== F || is.data.frame(x) ==F){
     stop("Please enter valid inputs")
@@ -25,7 +26,8 @@ dynamic_knapsack <- function(x,W){
   else if(W <= 0){
     stop("Please enter weight larger than 0")
   }
-  # removing the elements with weight more than 0  to reduce the number of iteration
+
+  if(fast == FALSE){
    m <- matrix(0, ncol = (W+1), nrow = (nrow(x)+1))
 
    # The code below runs two for loops to get the maximum value
@@ -44,6 +46,11 @@ dynamic_knapsack <- function(x,W){
 
        }
    }
+  }
+  else{
+    m = knapSackdynamic_cpp(W,x$w,x$v,nrow(x))
+  }
+
 
    # the code below runs one for loop to get the elements that are used to get the value above
    val <- m[nrow(m),ncol(m)]
