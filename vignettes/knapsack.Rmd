@@ -97,7 +97,7 @@ bruteforce_time = endtime - starttime
 
 The time taken to run brute force algorithm for 16 objects is: 
 
-```{r}
+```{r echo=FALSE}
 bruteforce_time
 ```
 
@@ -116,7 +116,7 @@ dynamic_time = endtime - starttime
 
 The time taken to run brute force algorithm for 500 objects is: 
 
-```{r}
+```{r echo=FALSE}
 dynamic_time
 ```
 
@@ -135,6 +135,6 @@ greedy_time = endtime - starttime
 
 The time taken to run brute force algorithm for 1000000 objects is: 
 
-```{r}
+```{r echo=FALSE}
 greedy_time
 ```
