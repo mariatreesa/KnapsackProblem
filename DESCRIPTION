@@ -14,3 +14,5 @@ Suggests: knitr,
 RoxygenNote: 6.1.0
 Depends: R (>= 2.10)
 VignetteBuilder: knitr
+LinkingTo: Rcpp
+Imports: Rcpp

@@ -15,6 +15,8 @@
 #' knapsack_objects <- data.frame(w=sample(1:4000, size = n, replace = TRUE), v=runif(n = n, 0, 10000))
 #' brute_force_knapsack(x = knapsack_objects[1:8,], W = 3500)
 #'
+#' @useDynLib knapsack
+#' @importFrom Rcpp sourceCpp
 
 
 

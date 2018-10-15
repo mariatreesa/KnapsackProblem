@@ -55,3 +55,13 @@ greedy_time = endtime - starttime
 ## ----echo=FALSE----------------------------------------------------------
 greedy_time
 
+## ------------------------------------------------------------------------
+starttime <- Sys.time()
+greedy_knapsack(x = knapsack_objects[1:1000000,],W=3500, fast = TRUE)
+endtime <- Sys.time()
+
+greedy_time = endtime - starttime
+
+## ----echo=FALSE----------------------------------------------------------
+greedy_time
+

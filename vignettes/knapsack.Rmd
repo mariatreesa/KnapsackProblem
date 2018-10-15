@@ -1,6 +1,6 @@
 ---
 title: "Knapsack Algorithm Implementation"
-author: "Sebastian Masinde Omkar"
+author: "Maria, Masinde, Omkar"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -95,8 +95,6 @@ endtime <- Sys.time()
 bruteforce_time = endtime - starttime
 ```
 
-The time taken to run brute force algorithm for 16 objects is: 
-
 ```{r echo=FALSE}
 bruteforce_time
 ```
@@ -114,16 +112,14 @@ endtime <- Sys.time()
 dynamic_time = endtime - starttime
 ```
 
-The time taken to run brute force algorithm for 500 objects is: 
-
 ```{r echo=FALSE}
 dynamic_time
 ```
 
 
-###dynamic_knapsack(x,W)
+###greedy_knapsack(x,W)
 
-Time taken to run the algorithm for 500 objects
+Time taken to run the algorithm for 1000000 objects
 
 ```{r}
 starttime <- Sys.time()
@@ -133,7 +129,22 @@ endtime <- Sys.time()
 greedy_time = endtime - starttime
 ```
 
-The time taken to run brute force algorithm for 1000000 objects is: 
+```{r echo=FALSE}
+greedy_time
+```
+
+###greedy_knapsack(x,W,fast=TRUE) - usingRcpp
+
+Time taken to run the algorithm for 1000000 objects using Rcpp
+
+```{r}
+starttime <- Sys.time()
+greedy_knapsack(x = knapsack_objects[1:1000000,],W=3500, fast = TRUE)
+endtime <- Sys.time()
+
+greedy_time = endtime - starttime
+```
+
 
 ```{r echo=FALSE}
 greedy_time

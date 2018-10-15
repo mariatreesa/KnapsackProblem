@@ -4,12 +4,14 @@
 \alias{greedy_knapsack}
 \title{knapsack - Greedy Algorithm}
 \usage{
-greedy_knapsack(x, W)
+greedy_knapsack(x, W, fast = FALSE)
 }
 \arguments{
 \item{x}{as dataframe}
 
 \item{W}{as numeric}
+
+\item{fast}{as logical}
 }
 \value{
 list containing value and elements
@@ -22,7 +24,6 @@ set.seed(42)
 n <- 2000
 knapsack_objects <- data.frame(w=sample(1:4000, size = n, replace = TRUE), v=runif(n = n, 0, 10000))
 greedy_knapsack(x = knapsack_objects[1:8,], W = 3500)
-
 
 }
 \author{
