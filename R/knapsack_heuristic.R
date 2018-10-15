@@ -25,28 +25,15 @@ greedy_knapsack <- function(x,W){
   }
 
 
-   x$vw <- x$v/x$w
-   x <- x[order(-x$vw),]
+  x$elements <- as.numeric(rownames(x))
+  x$vw <- x$v/x$w
+  x <- x[order(-x$vw),]
+  x <- x[which(x$w <= W),]
+  x$weight_sum <- cumsum(x$w)
+  x <- x[which(x$weight_sum <= W),]
+  knapsackvalue <- sum(x$v)
+  elements <- x$elements
 
-   # removing the elements with weight more than 0  to reduce the number of iteration
-   x <- x[which(x$w <= W),]
-
-   elements <- c()
-   capacity <- W
-   knapsackvalue <- 0
-
-
-    for(i in 1:nrow(x)){
-     currentweight <- x$w[i]
-     currentvalue <- x$v[i]
-     if((capacity - currentweight) >= 0){
-      capacity = capacity - currentweight
-       knapsackvalue = knapsackvalue + currentvalue
-       elements = c(as.numeric(rownames(x[i,])),elements)
-     }else{break();}
-
-
-   }
    result <- list("value" = round(knapsackvalue), "elements" = elements)
    return(result)
 
